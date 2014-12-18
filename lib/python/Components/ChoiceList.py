@@ -1,15 +1,22 @@
 from MenuList import MenuList
 from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename
-from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent, gFont
+from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent, gFont, getDesktop
 from Tools.LoadPixmap import LoadPixmap
 import skin
 
 def ChoiceEntryComponent(key = None, text = ["--"]):
+	screenwidth = getDesktop(0).size().width()
 	res = [ text ]
 	if text[0] == "--":
-		res.append((eListboxPythonMultiContent.TYPE_TEXT, 0, 00, 800, 25, 0, RT_HALIGN_LEFT, "-"*200))
+		if screenwidth and screenwidth == 1920:
+			res.append((eListboxPythonMultiContent.TYPE_TEXT, 0, 00, 900, 45, 0, RT_HALIGN_LEFT, "-"*200))
+		else:
+			res.append((eListboxPythonMultiContent.TYPE_TEXT, 0, 00, 800, 25, 0, RT_HALIGN_LEFT, "-"*200))
 	else:
-		res.append((eListboxPythonMultiContent.TYPE_TEXT, 45, 00, 800, 25, 0, RT_HALIGN_LEFT, text[0]))
+		if screenwidth and screenwidth == 1920:
+			res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 7, 900, 45, 0, RT_HALIGN_LEFT, text[0]))
+		else:
+			res.append((eListboxPythonMultiContent.TYPE_TEXT, 45, 00, 800, 25, 0, RT_HALIGN_LEFT, text[0]))
 		if key:
 			if key == "expandable":
 				png = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/expandable.png"))
@@ -22,7 +29,10 @@ def ChoiceEntryComponent(key = None, text = ["--"]):
 			else:
 				png = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/buttons/key_%s.png" % key))
 			if png:
-				res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 0, 35, 25, png))
+				if screenwidth and screenwidth == 1920:
+					res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 10, 5, 63, 48, png))
+				else:
+					res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 0, 35, 25, png))
 	return res
 
 class ChoiceList(MenuList):
