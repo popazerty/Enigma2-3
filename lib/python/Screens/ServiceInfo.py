@@ -4,7 +4,7 @@ from Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from ServiceReference import ServiceReference
-from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, eServiceCenter
+from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, eServiceCenter, getDesktop
 from Tools.Transponder import ConvertToHumanReadable
 from Components.Converter.ChannelNumbers import channelnumbers
 
@@ -21,6 +21,7 @@ def to_unsigned(x):
 	return x & 0xFFFFFFFF
 
 def ServiceInfoListEntry(a, b, valueType=TYPE_TEXT, param=4):
+	screenwidth = getDesktop(0).size().width()
 	print "b:", b
 	if not isinstance(b, str):
 		if valueType == TYPE_VALUE_HEX:
@@ -38,12 +39,20 @@ def ServiceInfoListEntry(a, b, valueType=TYPE_TEXT, param=4):
 		else:
 			b = str(b)
 
-	return [
-		#PyObject *type, *px, *py, *pwidth, *pheight, *pfnt, *pstring, *pflags;
-		(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 320, 30, 0, RT_HALIGN_LEFT, ""),
-		(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 320, 25, 0, RT_HALIGN_LEFT, a),
-		(eListboxPythonMultiContent.TYPE_TEXT, 330, 0, 570, 25, 0, RT_HALIGN_LEFT, b)
-	]
+	if screenwidth and screenwidth == 1920:
+		return [
+			#PyObject *type, *px, *py, *pwidth, *pheight, *pfnt, *pstring, *pflags;
+			(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 350, 60, 1, RT_HALIGN_LEFT, ""),
+			(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 350, 60, 1, RT_HALIGN_LEFT, a),
+			(eListboxPythonMultiContent.TYPE_TEXT, 370, 0, 650, 60, 1, RT_HALIGN_LEFT, b)
+		]
+	else:
+		return [
+			#PyObject *type, *px, *py, *pwidth, *pheight, *pfnt, *pstring, *pflags;
+			(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 320, 30, 0, RT_HALIGN_LEFT, ""),
+			(eListboxPythonMultiContent.TYPE_TEXT, 0, 0, 320, 25, 0, RT_HALIGN_LEFT, a),
+			(eListboxPythonMultiContent.TYPE_TEXT, 330, 0, 570, 25, 0, RT_HALIGN_LEFT, b)
+		]
 
 class ServiceInfoList(HTMLComponent, GUIComponent):
 	def __init__(self, source):
@@ -52,6 +61,7 @@ class ServiceInfoList(HTMLComponent, GUIComponent):
 		self.list = source
 		self.l.setList(self.list)
 		self.l.setFont(0, gFont("Regular", 23))
+		self.l.setFont(1, gFont("Regular", 32))
 		self.l.setItemHeight(25)
 
 	GUI_WIDGET = eListbox
