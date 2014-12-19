@@ -7,5 +7,6 @@ install_PYTHON = *.py
 dist_install_DATA = \
 	plugin_gray.png \
 	plugin.png \
+	pluginhd.png \
 	plugin_white.png \
 	Xtrend_Reader.png
