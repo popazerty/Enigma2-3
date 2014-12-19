@@ -1,7 +1,7 @@
 from HTMLComponent import HTMLComponent
 from GUIComponent import GUIComponent
 
-from enigma import eEPGCache, eListbox, eListboxPythonMultiContent, gFont, \
+from enigma import eEPGCache, eListbox, eListboxPythonMultiContent, gFont, getDesktop, \
 	RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, RT_VALIGN_CENTER
 
 from Tools.Alternatives import CompareWithAlternatives
@@ -46,8 +46,13 @@ class EPGList(HTMLComponent, GUIComponent):
 		GUIComponent.__init__(self)
 		self.type=type
 		self.l = eListboxPythonMultiContent()
-		self.l.setFont(0, gFont("Regular", 22))
-		self.l.setFont(1, gFont("Regular", 16))
+		self.screenwidth = getDesktop(0).size().width()
+		if self.screenwidth and self.screenwidth == 1920:
+			self.l.setFont(0, gFont("Regular", 32))
+			self.l.setFont(1, gFont("Regular", 26))
+		else:
+			self.l.setFont(0, gFont("Regular", 22))
+			self.l.setFont(1, gFont("Regular", 16))
 		self.dy = 0
 		if type == EPG_TYPE_SINGLE:
 			self.l.setBuildFunc(self.buildSingleEntry)
