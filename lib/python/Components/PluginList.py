@@ -16,8 +16,8 @@ def PluginEntryComponent(plugin, width=440):
 	if screenwidth and screenwidth == 1920:
 		return [
 			plugin,
-			MultiContentEntryText(pos=(180, 0), size=(width-120, 35), font=2, text=plugin.name),
-			MultiContentEntryText(pos=(180, 35), size=(width-120, 35), font=3, text=plugin.description),
+			MultiContentEntryText(pos=(180, 0), size=(width-120, 40), font=2, text=plugin.name),
+			MultiContentEntryText(pos=(180, 40), size=(width-120, 35), font=3, text=plugin.description),
 			MultiContentEntryPixmapAlphaBlend(pos=(10, 7), size=(150, 60), png = png)
 		]
 	else:
@@ -59,8 +59,8 @@ def PluginDownloadComponent(plugin, name, version=None, width=440):
 	if screenwidth and screenwidth == 1920:
 		return [
 			plugin,
-			MultiContentEntryText(pos=(110, 0), size=(width-80, 35), font=2, text=name),
-			MultiContentEntryText(pos=(110, 35), size=(width-80, 35), font=3, text=plugin.description),
+			MultiContentEntryText(pos=(110, 0), size=(width-80, 40), font=2, text=name),
+			MultiContentEntryText(pos=(110, 40), size=(width-80, 35), font=3, text=plugin.description),
 			MultiContentEntryPixmapAlphaBlend(pos=(10, 0), size=(90, 75), png = png)
 		]
 	else:
