@@ -1080,4 +1080,8 @@ def main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_PLUGINMENU], icon='plugin.png', fnc=main), PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main)]
+	screenwidth = getDesktop(0).size().width()
+	if screenwidth and screenwidth == 1920:
+		return [PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_PLUGINMENU], icon='pluginhd.png', fnc=main), PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main)]
+	else:
+		return [PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_PLUGINMENU], icon='plugin.png', fnc=main), PluginDescriptor(name='OpenXTA Reader', description='xtrend-alliance.com', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main)]
