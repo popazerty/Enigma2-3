@@ -177,7 +177,7 @@ class OpenXtaThread(Screen):
 			bereich = sub('<li><strong>(.*?)</strong> topics</li>\s*?<li>', '<stats>Threads: \g<1>', bereich)
 			bereich = sub('<strong>(.*?)</strong> replies</li>', ' Posts: \g<1></stats>', bereich)
 
-			bereich = sub('<ul class=\'last_post ipsType_small\'>\s*?<li>\s*?([a-zA-Z0-9_ ]*?)\s*?</li>', '<user>\g<1></user>', bereich)
+			bereich = sub('<ul class=\'last_post ipsType_small\'>\s*?<li>\s*?[\t]*(.*?)\s*?</li>', '<user>\g<1></user>', bereich)
 			bereich = sub('<li>By \n\t(.*?)\s*?</li>', '<user>\g<1></user>', bereich)
 
 			bereich = sub('<a itemprop="url" id=".*?" href="(.*?)"', '<link>\g<1></link>', bereich)
@@ -204,7 +204,7 @@ class OpenXtaThread(Screen):
 
 			bereich = sub('<td class=\'col_f_views\'>\s*?<ul>\s*?<li>(.*?) repl.*?</li>\s*?<li class=\'views desc\'>(.*?) views</li>\s*?</ul>\s*?</td>', '<stats>Replies: \g<1>, Views: \g<2></stats>', bereich)
 
-			bereich = sub('<ul class=\'last_post ipsType_small\'>\s*?<li>\s*?([a-zA-Z0-9_ ]*?)\s*?</li>', '<user>\g<1></user>', bereich)
+			bereich = sub('<ul class=\'last_post ipsType_small\'>\s*?<li>\s*?[\t]*(.*?)\s*?</li>', '<user>\g<1></user>', bereich)
 			self.setTitle(_("Latest Posts"))
 		logo = re.findall('<logo>(.*?)</logo>', bereich)
 		titel = re.findall('<titel>(.*?)</titel>', bereich)
@@ -323,14 +323,15 @@ class OpenXtaThread(Screen):
 		bereich = sub('<script type=\'text/javascript\'>\s*?.*?\s*?</script>', '', bereich)
 		bereich = sub('<p class=\'posted_info desc lighter ipsType_small\'>', '<p>', bereich) # posted date
 		bereich = sub('<span class=\'hide\' itemprop="name">(.*?)</span>\s*?<ul class=\'basic_info\'>\s*?<p class=\'desc member_title\'>(.*?)</p>', '<p>\g<1>, \g<2></p>', bereich) # user name, status
-		bereich = sub('<blockquote  class="ipsBlockquote" data-author=".*?" data-cid=".*?" data-time=".*?">([\s\S]*?)</blockquote>', '<p>Quote: \g<1> :Quote end</p>', bereich) # quote 1
-		bereich = sub('(<p>Quote: )[[\s\S]*?<p>([\s\S]*?)</p>[\s\S]*?]*( :Quote end</p>)', '\g<1>\g<2>\g<3>', bereich) # quote 2
+		bereich = sub('<blockquote  class="ipsBlockquote".*?>([\s\S]*?)</blockquote>', '<p>Quote: </p>\g<1><p> :Quote end</p>', bereich) # quote 1
+		bereich = sub('(<p>Quote: </p>)([\s\S]*?)(<p> :Quote end</p>)', '\g<1>\g<2>\g<3>', bereich) # quote 2
 		bereich = sub('<li id="like_post_.*?" class=\'ipsLikeBar_info\' >\s*?.*?\s*?</li>', '', bereich) # del likes
 		bereich = sub('<span>Please log in to reply</span>', '', bereich) # del "Please log in to reply"
 		bereich = sub('<span class=\'ipsType_small\'>\s*?.*?to this topic.*?\s*?</span>', '', bereich) # del # replies
 		bereich = sub('<div class=\"signature\".*?\s*?.*?\s*?</div>', '', bereich) # del signature
 		bereich = sub('<div class=\'pagination clearfix left \'>[\s\S]*?</div>', '', bereich) # del page quick links 1, 2, 3....
 		bereich = sub('<span>(.*?)</span>', '\g<1>', bereich)
+		bereich = sub('(<div itemprop=\"commentText\" class=\'post entry-content \'>)', '\g<1><p>', bereich) # add <p> because it is sometimes missing
 		if self.xd == True:
 			bereich = sub('<ul id=\'postControlsNormal_[0-9]*\' class=\'post_controls clear clearfix\' >', '<p>\n==============================================</p>', bereich)
 		else:
