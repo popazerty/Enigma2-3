@@ -203,6 +203,7 @@
 		<key id="KEY_TV" mapto="showTv" flags="m"/>
 		<key id="KEY_FILE" mapto="showMovies" flags="m"/>
 		<key id="KEY_TEXT" mapto="showText" flags="m"/>
+		<key id="KEY_HOMEPAGE" mapto="showMPortal" flags="m"/>
 	</map>
 
 	<map context="InfobarAudioSelectionActions">
@@ -507,8 +508,10 @@
 	</map>
 
 	<map context="ChannelSelectEPGActions">
-		<key id="KEY_INFO" mapto="showEPGList" flags="m"/>
-		<key id="KEY_EPG" mapto="showEPGList" flags="m"/>
+		<key id="KEY_INFO" mapto="showEPGList" flags="b"/>
+		<key id="KEY_INFO" mapto="showEPGListChosen" flags="l"/>
+		<key id="KEY_EPG" mapto="showGuideList" flags="b"/>
+		<key id="KEY_EPG" mapto="showGuideListChosen" flags="l"/>
 	</map>
 
 	<map context="ChannelSelectEditActions">
@@ -627,7 +630,7 @@
 	</map>
 
 	<map context="HelpActions">
-		<key id="KEY_HELP" mapto="displayHelp" flags="m"/>
+		<key id="KEY_HELP" mapto="displayHelp" flags="b"/>
 	</map>
 
 	<map context="ShortcutActions">

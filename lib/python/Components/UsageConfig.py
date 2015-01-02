@@ -366,7 +366,7 @@ def InitUsageConfig():
 		("step", _("Single step (GOP)")),
 		("last", _("Last speed")) ])
 
-
+        config.seek.withjumps = ConfigYesNo(default = False)
 	config.crash = ConfigSubsection()
 	config.crash.details = ConfigYesNo(default = False)
 	config.usage.timerlist_finished_timer_position = ConfigSelection(default = "end", choices = [("beginning", _("At beginning")), ("end", _("At end"))])
@@ -444,8 +444,7 @@ def InitUsageConfig():
 		("200", "80%"),
 		("225", "90%"),
 		("255", _("Full transparency"))])
-	config.subtitles.pango_subtitle_colors = ConfigSelection(default = "0", choices = [
-		("0", _("alternative")),
+	config.subtitles.pango_subtitle_colors = ConfigSelection(default = "1", choices = [
 		("1", _("white")),
 		("2", _("yellow")) ])
 	config.subtitles.pango_subtitles_delay = ConfigSelection(default = "0", choices = subtitle_delay_choicelist)
