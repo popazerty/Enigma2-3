@@ -2,7 +2,7 @@ from HTMLComponent import HTMLComponent
 from GUIComponent import GUIComponent
 from skin import parseColor, parseFont
 
-from enigma import eListboxServiceContent, eListbox, eServiceCenter, eServiceReference, gFont, eRect
+from enigma import eListboxServiceContent, eListbox, eServiceCenter, eServiceReference, gFont, eRect, getDesktop
 from Tools.LoadPixmap import LoadPixmap
 
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
@@ -302,6 +302,7 @@ class ServiceList(HTMLComponent, GUIComponent):
 		self.l.setCurrentMarked(state)
 
 	def setMode(self, mode):
+		screenwidth = getDesktop(0).size().width()
 		self.mode = mode
 		self.l.setItemHeight(self.ItemHeight)
 		self.l.setVisualMode(eListboxServiceContent.visModeComplex)
@@ -311,7 +312,10 @@ class ServiceList(HTMLComponent, GUIComponent):
 		else:
 			self.l.setGetPiconNameFunc(None)
 
-		progressBarWidth = 52
+		if screenwidth and screenwidth == 1920:
+			progressBarWidth = 78
+		else:
+			progressBarWidth = 52
 		rowWidth = self.instance.size().width() - 30 #scrollbar is fixed 20 + 10 Extra marge
 
 		if mode == self.MODE_NORMAL or not config.usage.show_channel_numbers_in_servicelist.value:
