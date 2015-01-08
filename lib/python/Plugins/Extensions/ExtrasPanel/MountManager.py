@@ -15,6 +15,7 @@ from Components.Console import Console
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Tools.LoadPixmap import LoadPixmap
+from Tools.Directories import SCOPE_ACTIVE_SKIN, resolveFilename
 from os import system, rename, path, mkdir, remove
 from time import sleep
 from re import search
@@ -158,13 +159,19 @@ class HddMount(Screen):
 		devicetype = path.realpath('/sys/block/' + device2 + '/device')
 		d2 = device
 		name = 'USB: '
-		mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_usbstick.png'
+		if path.exists(resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_usbstick.png")):
+			mypixmap = resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_usbstick.png")
+		else:
+			mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_usbstick.png'
 		model = file('/sys/block/' + device2 + '/device/model').read()
 		model = str(model).replace('\n', '')
 		des = ''
 		if devicetype.find('/devices/pci') != -1:
 			name = _("HARD DISK: ")
-			mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_hdd.png'
+			if path.exists(resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_hdd.png")):
+				mypixmap = resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_hdd.png")
+			else:
+				mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_hdd.png'
 		name = name + model
 		self.Console = Console()
 		self.Console.ePopen("sfdisk -l /dev/sd? | grep swap | awk '{print $(NF-9)}' >/tmp/devices.tmp")
@@ -395,13 +402,19 @@ class DevicePanelConf(Screen, ConfigListScreen):
 		devicetype = path.realpath('/sys/block/' + device2 + '/device')
 		d2 = device
 		name = 'USB: '
-		mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_usbstick.png'
+		if path.exists(resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_usbstick.png")):
+			mypixmap = resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_usbstick.png")
+		else:
+			mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_usbstick.png'
 		model = file('/sys/block/' + device2 + '/device/model').read()
 		model = str(model).replace('\n', '')
 		des = ''
 		if devicetype.find('/devices/pci') != -1:
 			name = _("HARD DISK: ")
-			mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_hdd.png'
+			if path.exists(resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_hdd.png")):
+				mypixmap = resolveFilename(SCOPE_ACTIVE_SKIN, "extraspanel/dev_hdd.png")
+			else:
+				mypixmap = '/usr/lib/enigma2/python/Plugins/Extensions/ExtrasPanel/icons/dev_hdd.png'
 		name = name + model
 		f = open('/proc/mounts', 'r')
 		for line in f.readlines():
