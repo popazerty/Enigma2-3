@@ -322,12 +322,8 @@ class ServiceList(HTMLComponent, GUIComponent):
 			channelNumberWidth = 0
 			channelNumberSpace = 0
 		else:
-			if screenwidth and screenwidth == 1920:
-				channelNumberWidth = config.usage.alternative_number_mode.value and 50 or 80
-				channelNumberSpace = 15
-			else:
-				channelNumberWidth = config.usage.alternative_number_mode.value and 50 or 63
-				channelNumberSpace = 10
+			channelNumberWidth = config.usage.alternative_number_mode.value and 50 or 63
+			channelNumberSpace = 10
 
 		self.l.setElementPosition(self.l.celServiceNumber, eRect(0, 0, channelNumberWidth, self.ItemHeight))
 
