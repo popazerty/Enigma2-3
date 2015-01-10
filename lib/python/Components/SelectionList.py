@@ -1,23 +1,34 @@
 from MenuList import MenuList
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT
+from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_VALIGN_CENTER, getDesktop
 from Tools.LoadPixmap import LoadPixmap
 
 selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"))
 
 def SelectionEntryComponent(description, value, index, selected):
-	res = [
-		(description, value, index, selected),
-		(eListboxPythonMultiContent.TYPE_TEXT, 25, 3, 650, 30, 0, RT_HALIGN_LEFT, description)
-	]
+	screenwidth = getDesktop(0).size().width()
+	if screenwidth and screenwidth == 1920:
+		res = [
+			(description, value, index, selected),
+			(eListboxPythonMultiContent.TYPE_TEXT, 80, 5, 900, 55, 1, RT_HALIGN_LEFT, description)
+		]
+	else:
+		res = [
+			(description, value, index, selected),
+			(eListboxPythonMultiContent.TYPE_TEXT, 25, 3, 650, 30, 0, RT_HALIGN_LEFT, description)
+		]
 	if selected:
-		res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 25, 24, selectionpng))
+		if screenwidth and screenwidth == 1920:
+			res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 5, 50, 50, selectionpng))
+		else:
+			res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 25, 24, selectionpng))
 	return res
 
 class SelectionList(MenuList):
 	def __init__(self, list = None, enableWrapAround = False):
 		MenuList.__init__(self, list or [], enableWrapAround, content = eListboxPythonMultiContent)
 		self.l.setFont(0, gFont("Regular", 20))
+		self.l.setFont(1, gFont("Regular", 32))
 		self.l.setItemHeight(30)
 
 	def addSelection(self, description, value, index, selected = True):
