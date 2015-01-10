@@ -1,6 +1,6 @@
 from MenuList import MenuList
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_VALIGN_CENTER, getDesktop
+from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, getDesktop
 from Tools.LoadPixmap import LoadPixmap
 
 selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"))
@@ -19,7 +19,7 @@ def SelectionEntryComponent(description, value, index, selected):
 		]
 	if selected:
 		if screenwidth and screenwidth == 1920:
-			res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 5, 50, 50, selectionpng))
+			res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 10, 5, 50, 50, selectionpng))
 		else:
 			res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 25, 24, selectionpng))
 	return res
