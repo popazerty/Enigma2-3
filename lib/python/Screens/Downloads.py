@@ -3,7 +3,6 @@ from Components.Sources.List import List
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaTest
 from enigma import eTimer, quitMainloop, RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eListbox, gFont, getDesktop, ePicLoad
 from Tools.LoadPixmap import LoadPixmap
-from enigma import getDesktop
 
 import urllib
 from urllib2 import urlopen
@@ -41,12 +40,18 @@ class RSList(MenuList):
 		MenuList.__init__(self, list, False, eListboxPythonMultiContent)
 		self.l.setItemHeight(30)
 		self.l.setFont(0, gFont("Regular", 20))
+		self.l.setFont(1, gFont("Regular", 32))
 
 ##############################################################################
 
 def RSListEntry(download, state):
-	res = [(download)]
-	res.append(MultiContentEntryText(pos=(40, 0), size=(620, 25), font=0, text=download))
+	screenwidth = getDesktop(0).size().width()
+	if screenwidth and screenwidth == 1920:
+		res = [(download)]
+		res.append(MultiContentEntryText(pos=(50, 0), size=(920, 50), font=1, text=download))
+	else:
+		res = [(download)]
+		res.append(MultiContentEntryText(pos=(40, 0), size=(620, 25), font=0, text=download))
         if state == 0:
               res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 6), size=(25,25), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/button_green.png"))))
         else:
@@ -56,12 +61,6 @@ def RSListEntry(download, state):
         return res
 
 ##############################################################################
-
-
-
-
-
-
 
 class Downloads(Screen):
 
@@ -607,57 +606,3 @@ def main(session, **kwargs):
 
 def Plugins(**kwargs):
 	return PluginDescriptor(name="PluginDownload", description="Download/install plugins ", where = PluginDescriptor.WHERE_PLUGINMENU, fnc=main)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
