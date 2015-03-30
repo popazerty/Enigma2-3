@@ -338,7 +338,7 @@ class MultiFileSelectList(FileList):
 				try:
 					self.selectedFiles.remove(realPathname)
 				except:
-				        try:
+					try:
 						self.selectedFiles.remove(os.path.normpath(realPathname))
 					except:
 					        print "Couldn't remove:", realPathname

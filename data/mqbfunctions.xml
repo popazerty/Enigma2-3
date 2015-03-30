@@ -681,6 +681,24 @@ if InfoBar and InfoBar.instance:
 			<screen><![CDATA[CableScanScreen]]></screen>
 		</mqbfunction>
 		<mqbfunction>
+			<name>eject (DVD-drive)</name>
+			<code><![CDATA[os.system('eject /dev/sr0')]]></code>
+		</mqbfunction>
+		<mqbfunction>
+			<name>close (DVD-drive)</name>
+			<code><![CDATA[os.system('eject -t /dev/sr0')]]></code>
+		</mqbfunction>
+		<mqbfunction>
+                        <name>Mount Manager</name>
+                        <module>Plugins.SystemPlugins.MountManager.plugin</module>
+                        <screen><![CDATA[DevicesPanel]]></screen>
+                </mqbfunction>
+                <mqbfunction>
+                        <name>ET Fan Control</name>
+                        <module>Plugins.SystemPlugins.ETFanControl.plugin</module>
+                        <screen><![CDATA[ETFanControlScreen]]></screen>
+                </mqbfunction>
+		<mqbfunction>
 			<name>Clone TV screen to LCD-Display (Xtrend et8500)</name>
                         <code><![CDATA[
 if config.lcd.et8500.value == "0":
