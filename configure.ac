@@ -70,6 +70,15 @@ if test "$BOXTYPE" == "vusolo2" -o "$BOXTYPE" == "vuduo2" -o "$BOXTYPE" == "vuso
 	AC_DEFINE(VUPLUS_RC_WORKAROUND, 1, [workaround for problem with vusolo2/vuduo2/vusolose event/rc driver])
 fi
 
+AC_ARG_WITH(libvugles2,
+       AS_HELP_STRING([--with-libvugles2],[use libvugles2, yes or no]),
+       [with_libvugles2=$withval],[with_libvugles2=no])
+if test "$with_libvugles2" = "yes"; then
+       PKG_CHECK_MODULES(LIBVUGLES2, [libvugles2])
+       GLES_CFLAGS="-DUSE_LIBVUGLES2"
+fi
+AM_CONDITIONAL(HAVE_LIBVUGLES2, test "$with_libvugles2" = "yes")
+
 AC_ARG_WITH(textlcd,
 	AC_HELP_STRING([--with-textlcd], [use ascii based lcd, yes or no]),
 	[[withtextlcd=$withval]],
@@ -167,7 +176,7 @@ AC_SUBST(ENIGMA2_CFLAGS)
 
 CPPFLAGS="$CPPFLAGS $PYTHON_CPPFLAGS"
 CFLAGS="$CFLAGS $DEBUG_CFLAGS -Wall"
-CXXFLAGS="$CXXFLAGS $DEBUG_CFLAGS -Wall $BASE_CFLAGS $ENIGMA2_CFLAGS $PTHREAD_CFLAGS $OPENMP_CFLAGS"
+CXXFLAGS="$CXXFLAGS $DEBUG_CFLAGS -Wall $BASE_CFLAGS $ENIGMA2_CFLAGS $PTHREAD_CFLAGS $OPENMP_CFLAGS $GLES_CFLAGS"
 AX_SWIG_PYTHON_OPT="$AX_SWIG_PYTHON_OPT -DSWIG_PYTHON_LEGACY_BOOL"
 
 AC_CONFIG_FILES([
@@ -232,6 +241,7 @@ lib/python/Plugins/Extensions/SocketMMI/src/Makefile
 lib/python/Plugins/Extensions/TuxboxPlugins/Makefile
 lib/python/Plugins/Extensions/TuxboxPlugins/meta/Makefile
 lib/python/Plugins/PLi/Makefile
+lib/python/Plugins/SystemPlugins/AnimationSetup/Makefile
 lib/python/Plugins/SystemPlugins/DefaultServicesScanner/Makefile
 lib/python/Plugins/SystemPlugins/DefaultServicesScanner/meta/Makefile
 lib/python/Plugins/SystemPlugins/DiseqcTester/Makefile
