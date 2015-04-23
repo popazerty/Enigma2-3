@@ -37,6 +37,8 @@ class About(Screen):
 		AboutText += _("Cores: %s") % about.getCpuCoresString() + "\n"
                 AboutText += _("Version: %s") % getImageVersion() + "\n"
 		AboutText += _("Build: %s") % getImageBuild() + "\n"
+		AboutText += _("Moderator: SODO") + "\n"
+		AboutText += _("OpenGL: Broadcom V2.0") + "\n"
                 string = getDriverDate()
 		year = string[0:4]
 		month = string[4:6]
