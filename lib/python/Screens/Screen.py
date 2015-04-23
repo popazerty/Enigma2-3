@@ -167,7 +167,11 @@ class Screen(dict, GUISkin):
 		for val in self.values() + self.renderer:
 			if isinstance(val, GUIComponent) or isinstance(val, Source):
 				val.onHide()
-
+				
+        def setAnimationMode(self, mode):
+                if self.instance:
+                        self.instance.setAnimationMode(mode)
+				
 	def __repr__(self):
 		return str(type(self))
 
