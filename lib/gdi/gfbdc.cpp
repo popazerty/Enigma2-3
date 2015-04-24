@@ -8,8 +8,8 @@
 #include <time.h>
 
 #ifdef USE_LIBVUGLES2
-+#include <vuplus_gles.h>
-+#endif
+#include <vuplus_gles.h>
+#endif
 
 gFBDC::gFBDC()
 {
